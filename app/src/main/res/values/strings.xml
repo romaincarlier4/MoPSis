@@ -10,6 +10,8 @@
     <string name="userName1">+ Add first profile</string>
     <string name="userName2">+ Add second profile</string>
     <string name="userName3">+ Add third profile</string>
+    <string name="create_new_user">Create new User</string>
+    <string name="your_name">Your name</string>
 
     <string-array name="types">
         <item>Annuité Constante</item>

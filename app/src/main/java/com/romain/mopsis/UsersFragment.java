@@ -28,6 +28,8 @@ public class UsersFragment extends Fragment {
     Button thirdUser;
     public static final String SHARED_PREFS = "Usernames";
     private String username1;
+    private String username2;
+    private String username3;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,7 +82,11 @@ public class UsersFragment extends Fragment {
         thirdUser = rootView.findViewById(R.id.user3);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREFS,getContext().MODE_PRIVATE);
         username1 = sharedPreferences.getString("Username1", getResources().getString(R.string.userName1));
+        username2 = sharedPreferences.getString("Username2", getResources().getString(R.string.userName2));
+        username3 = sharedPreferences.getString("Username3", getResources().getString(R.string.userName3));
         firstUser.setText(username1);
+        secondUser.setText(username2);
+        thirdUser.setText(username3);
 
         return rootView;
     }
@@ -91,26 +97,37 @@ public class UsersFragment extends Fragment {
         firstUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createUser();
+                createUser(1);
             }
         });
         secondUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createUser();
+                createUser(2);
             }
         });
         thirdUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("TEst");
+                createUser(3);
             }
         });
     }
 
-    public void createUser(){
-        Intent createUserActivity = new Intent(getActivity().getApplicationContext(), CreateUserActivity.class);
-        startActivity(createUserActivity);
+    public void createUser(int personIndex){
+        Intent createUser1Activity = new Intent(getActivity().getApplicationContext(), CreateUser1Activity.class);
+        Intent createUser2Activity = new Intent(getActivity().getApplicationContext(), CreateUser2Activity.class);
+        Intent createUser3Activity = new Intent(getActivity().getApplicationContext(), CreateUser3Activity.class);
+        if (personIndex==1){
+            startActivity(createUser1Activity);
+        }
+        else if (personIndex==2){
+            startActivity(createUser2Activity);
+        }
+        else{
+            startActivity(createUser3Activity);
+        }
+
     }
 
 }

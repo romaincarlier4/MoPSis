@@ -2,7 +2,6 @@ package com.romain.mopsis;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class CreateUserActivity extends AppCompatActivity {
+public class CreateUser1Activity extends AppCompatActivity {
 
     EditText name;
     Button confirm;
@@ -20,9 +19,9 @@ public class CreateUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_user);
+        setContentView(R.layout.activity_create_user1);
 
-        name = findViewById(R.id.userName);
+        name = findViewById(R.id.username);
         confirm = findViewById(R.id.confirmButton);
 
        confirm.setOnClickListener(new View.OnClickListener() {
