@@ -198,7 +198,6 @@ public class PayFragment extends Fragment{
             public void onClick(View view) {
                 String userFromSpinner = usernames.getSelectedItem().toString();
                 String currentUser = findUser(getActivity(), userFromSpinner);
-                System.out.println(currentUser);
                 SharedPreferences userSharedPrefs = getActivity().getSharedPreferences(currentUser, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = userSharedPrefs.edit();
                 editor.putString("montant", montant.getText().toString());

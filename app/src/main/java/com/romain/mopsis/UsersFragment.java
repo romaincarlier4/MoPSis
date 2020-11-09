@@ -1,5 +1,6 @@
 package com.romain.mopsis;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,10 +12,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+
+import java.io.File;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +34,13 @@ public class UsersFragment extends Fragment {
     Button firstUser;
     Button secondUser;
     Button thirdUser;
+    ImageButton modify1;
+    ImageButton delete1;
+    ImageButton modify2;
+    ImageButton delete2;
+    ImageButton modify3;
+    ImageButton delete3;
+
     private String username1;
     private String username2;
     private String username3;
@@ -79,16 +94,60 @@ public class UsersFragment extends Fragment {
         firstUser = rootView.findViewById(R.id.user1);
         secondUser = rootView.findViewById(R.id.user2);
         thirdUser = rootView.findViewById(R.id.user3);
+        modify1 = rootView.findViewById(R.id.modify1);
+        delete1 = rootView.findViewById(R.id.delete1);
+        modify2 = rootView.findViewById(R.id.modify2);
+        delete2 = rootView.findViewById(R.id.delete2);
+        modify3 = rootView.findViewById(R.id.modify3);
+        delete3 = rootView.findViewById(R.id.delete3);
+
         SharedPreferences user1SharedPrefs = getActivity().getSharedPreferences("user1",getContext().MODE_PRIVATE);
         SharedPreferences user2SharedPrefs = getActivity().getSharedPreferences("user2",getContext().MODE_PRIVATE);
         SharedPreferences user3SharedPrefs = getActivity().getSharedPreferences("user3",getContext().MODE_PRIVATE);
 
-        username1 = user1SharedPrefs.getString("username", getResources().getString(R.string.userName1));
-        username2 = user2SharedPrefs.getString("username", getResources().getString(R.string.userName2));
-        username3 = user3SharedPrefs.getString("username", getResources().getString(R.string.userName3));
-        firstUser.setText(username1);
-        secondUser.setText(username2);
-        thirdUser.setText(username3);
+        String user1DefaultMessage = getResources().getString(R.string.userName1);
+        String user2DefaultMessage = getResources().getString(R.string.userName2);
+        String user3DefaultMessage = getResources().getString(R.string.userName3);
+
+        username1 = user1SharedPrefs.getString("username", user1DefaultMessage);
+        username2 = user2SharedPrefs.getString("username", user2DefaultMessage);
+        username3 = user3SharedPrefs.getString("username", user3DefaultMessage);
+        if (username1 != user1DefaultMessage) {
+            firstUser.setText("Your first profile : " + username1);
+            modify1.setVisibility(View.VISIBLE);
+            delete1.setVisibility(View.VISIBLE);
+            firstUser.setEnabled(false);
+        }
+        else {
+            firstUser.setText(user1DefaultMessage);
+            modify1.setVisibility(View.INVISIBLE);
+            delete1.setVisibility(View.INVISIBLE);
+            firstUser.setEnabled(true);
+        }
+        if(username2 != user2DefaultMessage) {
+            secondUser.setText("Your second profile : " + username2);
+            modify2.setVisibility(View.VISIBLE);
+            delete2.setVisibility(View.VISIBLE);
+            secondUser.setEnabled(false);
+        }
+        else {
+            secondUser.setText(user2DefaultMessage);
+            modify2.setVisibility(View.INVISIBLE);
+            delete2.setVisibility(View.INVISIBLE);
+            secondUser.setEnabled(true);
+        }
+        if(username3!=user3DefaultMessage){
+            thirdUser.setText("Your third profile : " + username3);
+            modify3.setVisibility(View.VISIBLE);
+            delete3.setVisibility(View.VISIBLE);
+            thirdUser.setEnabled(false);
+        }
+        else{
+            thirdUser.setText(user3DefaultMessage);
+            modify3.setVisibility(View.INVISIBLE);
+            delete3.setVisibility(View.INVISIBLE);
+            thirdUser.setEnabled(true);
+        }
 
         return rootView;
     }
@@ -114,6 +173,61 @@ public class UsersFragment extends Fragment {
                 createUser(3);
             }
         });
+
+        delete1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user1", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                refresh(getActivity());
+            }
+        });
+
+        delete2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user2", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                refresh(getActivity());
+        }
+        });
+
+        delete3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user3", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                refresh(getActivity());
+            }
+        });
+
+        modify1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("OK");
+                updateUser(0);
+            }
+        });
+
+        modify2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateUser(1);
+            }
+        });
+
+        modify3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateUser(2);
+            }
+        });
     }
 
     public void createUser(int personIndex){
@@ -130,6 +244,28 @@ public class UsersFragment extends Fragment {
             startActivity(createUser3Activity);
         }
 
+    }
+
+    public void updateUser(int personIndex){
+        Intent updateUser1 = new Intent(getActivity().getApplicationContext(), UpdateUser1.class);
+        Intent updateUser2 = new Intent(getActivity().getApplicationContext(), UpdateUser2.class);
+        Intent updateUser3 = new Intent(getActivity().getApplicationContext(), UpdateUser3.class);
+        if (personIndex==0){
+            startActivity(updateUser1);
+        }
+        else if (personIndex==1){
+            startActivity(updateUser2);
+        }
+        else{
+            startActivity(updateUser3);
+        }
+    }
+
+    public void refresh(Activity activity){
+        activity.finish();
+        activity.overridePendingTransition(0,0);
+        startActivity(activity.getIntent());
+        activity.overridePendingTransition(0,0);
     }
 
 }

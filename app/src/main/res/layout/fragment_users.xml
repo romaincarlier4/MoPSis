@@ -40,7 +40,7 @@
             android:paddingBottom="3dp"
             android:text="@string/userName1"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/users"
             app:layout_constraintTop_toBottomOf="@+id/users" />
 
@@ -59,7 +59,7 @@
             android:paddingBottom="3dp"
             android:text="@string/userName2"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/users"
             app:layout_constraintTop_toBottomOf="@+id/user1" />
 
@@ -78,9 +78,76 @@
             android:paddingBottom="3dp"
             android:text="@string/userName3"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/users"
             app:layout_constraintTop_toBottomOf="@+id/user2"/>
+
+        <ImageButton
+            android:id="@+id/modify1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit"
+            app:layout_constraintBottom_toBottomOf="@+id/user1"
+            app:layout_constraintStart_toEndOf="@+id/user1"
+            app:layout_constraintTop_toTopOf="@+id/user1"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp" />
+
+        <ImageButton
+            android:id="@+id/delete1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/delete"
+            app:layout_constraintBottom_toBottomOf="@+id/user1"
+            app:layout_constraintStart_toEndOf="@+id/modify1"
+            app:layout_constraintTop_toTopOf="@+id/user1"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp" />
+
+        <ImageButton
+            android:id="@+id/modify2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit"
+            app:layout_constraintBottom_toBottomOf="@+id/user2"
+            app:layout_constraintStart_toEndOf="@+id/user2"
+            app:layout_constraintTop_toTopOf="@+id/user2"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp" />
+
+        <ImageButton
+            android:id="@+id/delete2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/delete"
+            app:layout_constraintBottom_toBottomOf="@+id/user2"
+            app:layout_constraintStart_toEndOf="@+id/modify2"
+            app:layout_constraintTop_toTopOf="@+id/user2"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp" />
+
+        <ImageButton
+            android:id="@+id/modify3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit"
+            app:layout_constraintBottom_toBottomOf="@+id/user3"
+            app:layout_constraintStart_toEndOf="@+id/user3"
+            app:layout_constraintTop_toTopOf="@+id/user3"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp" />
+
+        <ImageButton
+            android:id="@+id/delete3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/delete"
+            app:layout_constraintBottom_toBottomOf="@+id/user3"
+            app:layout_constraintStart_toEndOf="@+id/modify3"
+            app:layout_constraintTop_toTopOf="@+id/user3"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
