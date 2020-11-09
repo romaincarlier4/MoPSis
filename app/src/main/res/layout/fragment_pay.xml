@@ -4,13 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PayFragment">
+    tools:context=".PayFragment"
+    android:background="@color/White">
+
+    <Spinner
+        android:id="@+id/usernamesSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="15dp"
+        android:entries="@array/usernames"
+        android:gravity="center"
+        android:textAlignment="center" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/White">
-
 
         <TextView
             android:id="@+id/loan_details"
@@ -232,6 +245,16 @@
             app:layout_constraintBottom_toBottomOf="@+id/total"
             app:layout_constraintStart_toEndOf="@+id/total"
             app:layout_constraintTop_toTopOf="@+id/total" />
+
+        <Button
+            android:id="@+id/saveData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SAVE DATA"
+            app:layout_constraintStart_toStartOf="@+id/total"
+            app:layout_constraintTop_toBottomOf="@+id/total_result"
+            android:layout_marginTop="40dp"/>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

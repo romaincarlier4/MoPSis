@@ -13,7 +13,7 @@ public class CreateUser3Activity extends AppCompatActivity {
 
     EditText username3;
     Button confirm3;
-    public static final String SHARED_PREFS = "Usernames";
+    public static final String SHARED_PREFS = "user3";
 
 
     @Override
@@ -29,7 +29,7 @@ public class CreateUser3Activity extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Username3",username3.getText().toString());
+                editor.putString("username",username3.getText().toString());
                 editor.apply();
                 Intent userFragment = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(userFragment);

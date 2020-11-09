@@ -1,6 +1,9 @@
 package com.romain.mopsis;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -24,6 +28,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +47,8 @@ public class PayFragment extends Fragment{
     Spinner type = null;
     TextView mensualite = null;
     TextView total = null;
+    Spinner usernames = null;
+    Button saveData = null;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -97,6 +104,8 @@ public class PayFragment extends Fragment{
         type = rootView.findViewById(R.id.spinner);
         mensualite = rootView.findViewById(R.id.mensualite_result);
         total = rootView.findViewById(R.id.total_result);
+        usernames = rootView.findViewById(R.id.usernamesSpinner);
+        saveData = rootView.findViewById(R.id.saveData);
 
         //creation des listeners
         montant.addTextChangedListener(new TextWatcher() {
@@ -182,6 +191,24 @@ public class PayFragment extends Fragment{
             }
         });
         type.setOnItemSelectedListener(spinnerListener);
+        usernames.setOnItemSelectedListener(usernameSpinnerListener);
+
+        saveData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userFromSpinner = usernames.getSelectedItem().toString();
+                String currentUser = findUser(getActivity(), userFromSpinner);
+                System.out.println(currentUser);
+                SharedPreferences userSharedPrefs = getActivity().getSharedPreferences(currentUser, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = userSharedPrefs.edit();
+                editor.putString("montant", montant.getText().toString());
+                editor.putString("taux", interet.getText().toString());
+                editor.putString("duree", duree.getText().toString());
+                editor.putInt("type", type.getSelectedItemPosition());
+                editor.apply();
+            }
+        });
+        setUpUsernamesSpinner(getActivity(), usernames);
         return rootView;
 
     }
@@ -274,14 +301,32 @@ public class PayFragment extends Fragment{
         }
     }
 
-    //spinner listener
-    private AdapterView.OnItemSelectedListener spinnerListener = new AdapterView.OnItemSelectedListener() {
-
+    //username Spinner listener
+    private AdapterView.OnItemSelectedListener usernameSpinnerListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            String userFromSpinner = usernames.getSelectedItem().toString();
+            String currentUser = findUser(getActivity(), userFromSpinner);
+            SharedPreferences userSharedPrefs = getActivity().getSharedPreferences(currentUser, Context.MODE_PRIVATE);
+            String savedAmount = userSharedPrefs.getString("montant", null);
+            String savedTaux = userSharedPrefs.getString("taux", null);
+            String savedDuree = userSharedPrefs.getString("duree", null);
+            int savedType = userSharedPrefs.getInt("type" , -1);
 
-            dynamicCalcul();
-
+            if(savedAmount!=null && savedTaux!=null && savedDuree!=null && savedType!=-1){
+                montant.setText(savedAmount);
+                duree.setText(savedDuree);
+                interet.setText(savedTaux);
+                type.setSelection(savedType);
+                dynamicCalcul();
+            }
+            else{
+                montant.setText("");
+                duree.setText("");
+                interet.setText("");
+                type.setSelection(0);
+                dynamicCalcul();
+            }
         }
 
         @Override
@@ -289,6 +334,20 @@ public class PayFragment extends Fragment{
 
         }
     };
+
+    //spinner listener
+    private AdapterView.OnItemSelectedListener spinnerListener = new AdapterView.OnItemSelectedListener() {
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            dynamicCalcul();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+        }
+    };
+
 
     //creer espace entre chiffres
     private static String spacer(String number) {
@@ -314,5 +373,34 @@ public class PayFragment extends Fragment{
         String groupingSeparator = String.valueOf(decimalFormat.getDecimalFormatSymbols().getGroupingSeparator());
         String number2 = number.replace(groupingSeparator, "");
         return number2;
+    }
+
+    private static void setUpUsernamesSpinner(Activity activity, Spinner spinner){
+        SharedPreferences user1Preferences = activity.getSharedPreferences("user1", Context.MODE_PRIVATE);
+        String username1 = user1Preferences.getString("username", null);
+        SharedPreferences user2Preferences = activity.getSharedPreferences("user2", Context.MODE_PRIVATE);
+        String username2 = user2Preferences.getString("username", null);
+        SharedPreferences user3Preferences = activity.getSharedPreferences("user3", Context.MODE_PRIVATE);
+        String username3 = user3Preferences.getString("username", null);
+        ArrayList<String> usernamesList = new ArrayList<>();
+        if (username1!=null) { usernamesList.add(username1);}
+        if (username2 !=null){usernamesList.add(username2);}
+        if (username3!=null){usernamesList.add(username3);}
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, usernamesList);
+        spinner.setAdapter(dataAdapter);
+    }
+
+    private static String findUser(Activity activity, String currentUser){
+        SharedPreferences user1Prefs = activity.getSharedPreferences("user1", Context.MODE_PRIVATE);
+        SharedPreferences user2Prefs = activity.getSharedPreferences("user2", Context.MODE_PRIVATE);
+        SharedPreferences user3Prefs = activity.getSharedPreferences("user3", Context.MODE_PRIVATE);
+        if (user1Prefs.getString("username", null) == currentUser){
+            return "user1";
+        } else if (user2Prefs.getString("username",null)==currentUser){
+            return "user2";
+        }else if (user3Prefs.getString("username", null)==currentUser){
+            return "user3";
+        }
+        return "";
     }
 }

@@ -26,7 +26,6 @@ public class UsersFragment extends Fragment {
     Button firstUser;
     Button secondUser;
     Button thirdUser;
-    public static final String SHARED_PREFS = "Usernames";
     private String username1;
     private String username2;
     private String username3;
@@ -80,10 +79,13 @@ public class UsersFragment extends Fragment {
         firstUser = rootView.findViewById(R.id.user1);
         secondUser = rootView.findViewById(R.id.user2);
         thirdUser = rootView.findViewById(R.id.user3);
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREFS,getContext().MODE_PRIVATE);
-        username1 = sharedPreferences.getString("Username1", getResources().getString(R.string.userName1));
-        username2 = sharedPreferences.getString("Username2", getResources().getString(R.string.userName2));
-        username3 = sharedPreferences.getString("Username3", getResources().getString(R.string.userName3));
+        SharedPreferences user1SharedPrefs = getActivity().getSharedPreferences("user1",getContext().MODE_PRIVATE);
+        SharedPreferences user2SharedPrefs = getActivity().getSharedPreferences("user2",getContext().MODE_PRIVATE);
+        SharedPreferences user3SharedPrefs = getActivity().getSharedPreferences("user3",getContext().MODE_PRIVATE);
+
+        username1 = user1SharedPrefs.getString("username", getResources().getString(R.string.userName1));
+        username2 = user2SharedPrefs.getString("username", getResources().getString(R.string.userName2));
+        username3 = user3SharedPrefs.getString("username", getResources().getString(R.string.userName3));
         firstUser.setText(username1);
         secondUser.setText(username2);
         thirdUser.setText(username3);
