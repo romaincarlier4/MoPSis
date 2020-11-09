@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PayFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/White">
+
+
+        <TextView
+            android:id="@+id/loan_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/opensans"
+            android:text="Loan details :"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/montant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/opensans"
+            android:text="@string/montant_emprunt"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/montant_emprunte"
+            app:layout_constraintStart_toEndOf="@id/montant_emprunte"
+            app:layout_constraintTop_toTopOf="@+id/montant_emprunte"
+            app:layout_constraintVertical_bias="0.5" />
+
+
+        <EditText
+            android:id="@+id/montant_emprunte"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/border"
+            android:fontFamily="@font/opensans"
+            android:gravity="end"
+            android:hint="0,00€"
+            android:inputType="numberDecimal"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="textEnd"
+            android:textCursorDrawable="@drawable/flashing_bar"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/taux"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="130dp"
+            android:fontFamily="@font/opensans"
+            android:text="Taux d'intérêt"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/taux_nombre"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/taux_nombre"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:background="@drawable/border"
+            android:fontFamily="@font/opensans"
+            android:gravity="end"
+            android:hint="0 %"
+            android:inputType="numberDecimal"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="textEnd"
+            android:textCursorDrawable="@drawable/flashing_bar"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/taux"
+            app:layout_constraintEnd_toEndOf="@id/montant_emprunte"
+            app:layout_constraintTop_toTopOf="@+id/taux"
+            app:layout_constraintVertical_bias="0.5" />
+
+
+        <TextView
+            android:id="@+id/durée"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="180dp"
+            android:fontFamily="@font/opensans"
+            android:text="Durée(années)"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/durée_nombre"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/durée_nombre"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:background="@drawable/border"
+            android:fontFamily="@font/opensans"
+            android:gravity="end"
+            android:hint="0 années"
+            android:inputType="numberDecimal"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="textEnd"
+            android:textCursorDrawable="@drawable/flashing_bar"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/durée"
+            app:layout_constraintEnd_toEndOf="@id/taux_nombre"
+            app:layout_constraintTop_toTopOf="@+id/durée"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="230dp"
+            android:fontFamily="@font/opensans"
+            android:text="Type de prêt"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/spinner"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:background="@drawable/border"
+            android:entries="@array/types"
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/type"
+            app:layout_constraintEnd_toEndOf="@+id/durée_nombre"
+            app:layout_constraintTop_toTopOf="@+id/type" />
+
+        <TextView
+            android:id="@+id/loan_calculations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="310dp"
+            android:fontFamily="@font/opensans"
+            android:text="Loan calculations :"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/mensualité"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="350dp"
+            android:fontFamily="@font/opensans"
+            android:text="Monthly payements"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/spinner"
+            app:layout_constraintStart_toStartOf="@+id/spinner"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/mensualite_result"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/border"
+            android:fontFamily="@font/opensans"
+            android:gravity="end"
+            android:hint="to be calculated"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/mensualité"
+            app:layout_constraintStart_toEndOf="@+id/mensualité"
+            app:layout_constraintTop_toTopOf="@+id/mensualité"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="400dp"
+            android:fontFamily="@font/opensans"
+            android:text="Total with interests"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/mensualité"
+            app:layout_constraintStart_toStartOf="@+id/mensualité"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/total_result"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/border"
+            android:fontFamily="@font/opensans"
+            android:gravity="end"
+            android:hint="to be calculated"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/total"
+            app:layout_constraintStart_toEndOf="@+id/total"
+            app:layout_constraintTop_toTopOf="@+id/total" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="35dp"
+            app:layout_constraintEnd_toEndOf="@+id/total_result"
+            app:layout_constraintStart_toStartOf="@+id/total"
+            app:layout_constraintTop_toBottomOf="@+id/total_result" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>
