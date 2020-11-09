@@ -1,13 +1,20 @@
 package com.romain.mopsis;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +22,12 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class UsersFragment extends Fragment {
+
+    Button firstUser;
+    Button secondUser;
+    Button thirdUser;
+    public static final String SHARED_PREFS = "Usernames";
+    private String username1;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +73,44 @@ public class UsersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_users, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_users, container, false);
+
+        firstUser = rootView.findViewById(R.id.user1);
+        secondUser = rootView.findViewById(R.id.user2);
+        thirdUser = rootView.findViewById(R.id.user3);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREFS,getContext().MODE_PRIVATE);
+        username1 = sharedPreferences.getString("Username1", getResources().getString(R.string.userName1));
+        firstUser.setText(username1);
+
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        firstUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createUser();
+            }
+        });
+        secondUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createUser();
+            }
+        });
+        thirdUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("TEst");
+            }
+        });
+    }
+
+    public void createUser(){
+        Intent createUserActivity = new Intent(getActivity().getApplicationContext(), CreateUserActivity.class);
+        startActivity(createUserActivity);
     }
 
 }

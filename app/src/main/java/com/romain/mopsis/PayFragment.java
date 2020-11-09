@@ -35,14 +35,13 @@ import java.util.List;
  */
 
 public class PayFragment extends Fragment{
-    Button calc = null;
+
     EditText montant = null;
     EditText interet = null;
     EditText duree = null;
     Spinner type = null;
     TextView mensualite = null;
     TextView total = null;
-    PieChart chart = null;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -98,7 +97,6 @@ public class PayFragment extends Fragment{
         type = rootView.findViewById(R.id.spinner);
         mensualite = rootView.findViewById(R.id.mensualite_result);
         total = rootView.findViewById(R.id.total_result);
-        chart = rootView.findViewById(R.id.pieChart);
 
         //creation des listeners
         montant.addTextChangedListener(new TextWatcher() {
@@ -235,16 +233,6 @@ public class PayFragment extends Fragment{
             interet.setHintTextColor(getResources().getColor(R.color.hint_default));
             duree.setHintTextColor(getResources().getColor(R.color.hint_default));
 
-            List<PieEntry> entries = new ArrayList<PieEntry>();
-            entries.add(new PieEntry(amountFloat, "capital"));
-            entries.add(new PieEntry((float) (interest_and_capital-amountFloat),"interests"));
-
-            PieDataSet pieDataSet = new PieDataSet(entries, "");
-            pieDataSet.setColors(getResources().getColor(R.color.rouge),getResources().getColor(R.color.blue));
-
-            PieData pieData = new PieData(pieDataSet);
-            chart.setMaxAngle(180);
-            chart.setData(pieData);
 
         // Calcul des mensualites et de l'interet total pour le capital fixe
         } else if (!amount.isEmpty() && !taux.isEmpty() && !duration.isEmpty() && type_pret.equals("Capital fixe")) {
@@ -266,16 +254,6 @@ public class PayFragment extends Fragment{
             mensualite.setTextColor(getResources().getColor(R.color.black));
             mensualite.setBackground(getResources().getDrawable(R.drawable.border));
 
-            List<PieEntry> entries = new ArrayList<PieEntry>();
-            entries.add(new PieEntry(amountFloat, "capital"));
-            entries.add(new PieEntry((float) (total_refund-amountDouble),"interests"));
-
-            PieDataSet pieDataSet = new PieDataSet(entries, "");
-            pieDataSet.setColors(getResources().getColor(R.color.rouge),getResources().getColor(R.color.blue));
-
-            PieData pieData = new PieData(pieDataSet);
-            chart.setMaxAngle(180);
-            chart.setData(pieData);
         }
         else if(!amount.isEmpty() && !taux.isEmpty() && !duration.isEmpty() && type_pret.equals("Bullet")){
             double total_refund=0;
@@ -293,18 +271,6 @@ public class PayFragment extends Fragment{
             mensualite.setText(decimal_spacer(Double.toString(mensualites))+" €");
             mensualite.setTextColor(getResources().getColor(R.color.black));
             mensualite.setBackground(getResources().getDrawable(R.drawable.border));
-
-            List<PieEntry> entries = new ArrayList<PieEntry>();
-            entries.add(new PieEntry(amountFloat, "capital"));
-            entries.add(new PieEntry((float) (total_refund-amountDouble),"interests"));
-
-            PieDataSet pieDataSet = new PieDataSet(entries, "");
-            pieDataSet.setColors(getResources().getColor(R.color.rouge),getResources().getColor(R.color.blue));
-
-            PieData pieData = new PieData(pieDataSet);
-            chart.setMaxAngle(180);
-            chart.
-            chart.setData(pieData);
         }
     }
 

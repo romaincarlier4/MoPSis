@@ -7,6 +7,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name_user">User 1</string>
     <string name="montant_emprunt">Montant emprunté</string>
+    <string name="userName1">+ Add first profile</string>
+    <string name="userName2">+ Add second profile</string>
+    <string name="userName3">+ Add third profile</string>
 
     <string-array name="types">
         <item>Annuité Constante</item>
