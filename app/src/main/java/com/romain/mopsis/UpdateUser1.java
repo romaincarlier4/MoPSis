@@ -36,6 +36,7 @@ public class UpdateUser1 extends AppCompatActivity {
                 editor.putString("username",name.getText().toString());
                 editor.apply();
                 Intent userFragment = new Intent(getApplicationContext(),MainActivity.class);
+                userFragment.putExtra("UserID", 0);
                 startActivity(userFragment);
             }
         });

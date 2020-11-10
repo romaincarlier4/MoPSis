@@ -11,6 +11,7 @@
     <string name="userName3">+ Add third profile</string>
     <string name="create_new_user">Create new User</string>
     <string name="your_name">Your name</string>
+    <string name="select_a_user_here">Select an user here :</string>
 
     <string-array name="types">
         <item>Annuité Constante</item>

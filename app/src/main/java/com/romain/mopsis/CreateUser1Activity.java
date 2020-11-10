@@ -24,14 +24,15 @@ public class CreateUser1Activity extends AppCompatActivity {
         name = findViewById(R.id.username);
         confirm = findViewById(R.id.confirmButton);
 
-       confirm.setOnClickListener(new View.OnClickListener() {
+        confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("username",name.getText().toString());
+                editor.putString("username", name.getText().toString());
                 editor.apply();
-                Intent userFragment = new Intent(getApplicationContext(),MainActivity.class);
+                Intent userFragment = new Intent(getApplicationContext(), MainActivity.class);
+                userFragment.putExtra("UserID", 0);
                 startActivity(userFragment);
             }
         });

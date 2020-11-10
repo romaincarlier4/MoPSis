@@ -3,6 +3,7 @@ package com.romain.mopsis;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -41,14 +42,14 @@ import java.util.List;
 
 public class PayFragment extends Fragment{
 
-    EditText montant = null;
-    EditText interet = null;
-    EditText duree = null;
-    Spinner type = null;
-    TextView mensualite = null;
-    TextView total = null;
-    Spinner usernames = null;
-    Button saveData = null;
+    EditText montant;
+    EditText interet;
+    EditText duree;
+    Spinner type;
+    TextView mensualite;
+    TextView total;
+    Spinner usernames;
+    TextView selectUser;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -97,6 +98,10 @@ public class PayFragment extends Fragment{
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_pay, container, false);
 
+        Intent intent = getActivity().getIntent();
+        int userIndex = intent.getIntExtra("UserID" , 0);
+        System.out.println(userIndex);
+
         //Creation des vues
         montant = rootView.findViewById(R.id.montant_emprunte);
         interet = rootView.findViewById(R.id.taux_nombre);
@@ -105,7 +110,7 @@ public class PayFragment extends Fragment{
         mensualite = rootView.findViewById(R.id.mensualite_result);
         total = rootView.findViewById(R.id.total_result);
         usernames = rootView.findViewById(R.id.usernamesSpinner);
-        saveData = rootView.findViewById(R.id.saveData);
+        selectUser = rootView.findViewById(R.id.selectUser);
 
         //creation des listeners
         montant.addTextChangedListener(new TextWatcher() {
@@ -193,24 +198,22 @@ public class PayFragment extends Fragment{
         type.setOnItemSelectedListener(spinnerListener);
         usernames.setOnItemSelectedListener(usernameSpinnerListener);
 
-        saveData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String userFromSpinner = usernames.getSelectedItem().toString();
-                String currentUser = findUser(getActivity(), userFromSpinner);
-                SharedPreferences userSharedPrefs = getActivity().getSharedPreferences(currentUser, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = userSharedPrefs.edit();
-                editor.putString("montant", montant.getText().toString());
-                editor.putString("taux", interet.getText().toString());
-                editor.putString("duree", duree.getText().toString());
-                editor.putInt("type", type.getSelectedItemPosition());
-                editor.apply();
-            }
-        });
+        //put usernames into spinner
         setUpUsernamesSpinner(getActivity(), usernames);
+        usernames.setSelection(userIndex);
+        if(usernames.getSelectedItem() == null){
+            usernames.setVisibility(View.INVISIBLE);
+            selectUser.setVisibility(View.INVISIBLE);
+        }
+        else{
+            usernames.setVisibility(View.VISIBLE);
+            selectUser.setVisibility(View.VISIBLE);
+        }
         return rootView;
 
     }
+
+    // METHODE AUXILLIAIRES
 
     //Calcul dynamique
     public void dynamicCalcul(){
@@ -238,6 +241,13 @@ public class PayFragment extends Fragment{
 
         // Calcul des mensualités et de l'interet total pour l'annuité constante
         if (!amount.isEmpty() && !taux.isEmpty() && !duration.isEmpty() && type_pret.equals("Annuité Constante")) {
+
+            String currentUser = usernames.getSelectedItem().toString();
+            if(currentUser!=null){
+                String user = findUser(getActivity(), currentUser);
+            }
+            String user = "temporaryUser";
+
             double annual_refund = (Double.parseDouble(amount) * Double.parseDouble(taux) / 100) / (1 - (Math.pow((1 + Double.parseDouble(taux) / 100), -Double.parseDouble(duration))));
             Float amountFloat = Float.parseFloat(amount);
             double monthly_refund = annual_refund/12;
@@ -298,9 +308,10 @@ public class PayFragment extends Fragment{
             mensualite.setTextColor(getResources().getColor(R.color.black));
             mensualite.setBackground(getResources().getDrawable(R.drawable.border));
         }
+        saveData(getActivity());
     }
 
-    //username Spinner listener
+    //config userName spinner listener
     private AdapterView.OnItemSelectedListener usernameSpinnerListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -334,7 +345,7 @@ public class PayFragment extends Fragment{
         }
     };
 
-    //spinner listener
+    //config Type spinner listener
     private AdapterView.OnItemSelectedListener spinnerListener = new AdapterView.OnItemSelectedListener() {
 
         @Override
@@ -346,7 +357,6 @@ public class PayFragment extends Fragment{
         public void onNothingSelected(AdapterView<?> adapterView) {
         }
     };
-
 
     //creer espace entre chiffres
     private static String spacer(String number) {
@@ -374,6 +384,7 @@ public class PayFragment extends Fragment{
         return number2;
     }
 
+    //Mettre les bons noms dans le spinner
     private static void setUpUsernamesSpinner(Activity activity, Spinner spinner){
         SharedPreferences user1Preferences = activity.getSharedPreferences("user1", Context.MODE_PRIVATE);
         String username1 = user1Preferences.getString("username", null);
@@ -389,6 +400,7 @@ public class PayFragment extends Fragment{
         spinner.setAdapter(dataAdapter);
     }
 
+    //Trouver sur quel user on se trouve
     private static String findUser(Activity activity, String currentUser){
         SharedPreferences user1Prefs = activity.getSharedPreferences("user1", Context.MODE_PRIVATE);
         SharedPreferences user2Prefs = activity.getSharedPreferences("user2", Context.MODE_PRIVATE);
@@ -401,5 +413,20 @@ public class PayFragment extends Fragment{
             return "user3";
         }
         return "";
+    }
+
+    //Save Data
+    private void saveData(Activity activity){
+        try{
+            String userFromSpinner = usernames.getSelectedItem().toString();
+            String currentUser = findUser(activity, userFromSpinner);
+            SharedPreferences userSharedPrefs = getActivity().getSharedPreferences(currentUser, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = userSharedPrefs.edit();
+            editor.putString("montant", montant.getText().toString());
+            editor.putString("taux", interet.getText().toString());
+            editor.putString("duree", duree.getText().toString());
+            editor.putInt("type", type.getSelectedItemPosition());
+            editor.apply();
+        } catch(Exception e) {}
     }
 }

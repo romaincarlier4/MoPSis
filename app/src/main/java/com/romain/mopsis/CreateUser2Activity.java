@@ -32,6 +32,7 @@ public class CreateUser2Activity extends AppCompatActivity {
                 editor.putString("username",username2.getText().toString());
                 editor.apply();
                 Intent userFragment = new Intent(getApplicationContext(),MainActivity.class);
+                userFragment.putExtra("UserID", 1);
                 startActivity(userFragment);
             }
         });

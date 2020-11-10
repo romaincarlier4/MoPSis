@@ -32,6 +32,7 @@ public class CreateUser3Activity extends AppCompatActivity {
                 editor.putString("username",username3.getText().toString());
                 editor.apply();
                 Intent userFragment = new Intent(getApplicationContext(),MainActivity.class);
+                userFragment.putExtra("UserID", 2);
                 startActivity(userFragment);
             }
         });
