@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserActivity"
+    android:background="@color/White"
+    android:orientation="vertical"
+    android:weightSum="20">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7">
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/arrow"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="13"
+        android:layout_marginTop="50dp">
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome"
+            android:fontFamily="@font/century_regular"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/noProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/welcome"
+            android:text="@string/you_have_no_profile_yet"
+            android:fontFamily="@font/century_regular"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="25dp"/>
+
+        <Button
+            android:id="@+id/createBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_your_first_account"
+            android:textSize="20sp"
+            android:fontFamily="@font/century_regular"
+            android:layout_below="@id/noProfile"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/White"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/buyhome"
+            android:layout_below="@id/createBtn"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

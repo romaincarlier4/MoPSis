@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserActivity"
+    android:background="@color/White"
+    android:orientation="vertical"
+    android:weightSum="20">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/arrow"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your projects"
+            android:fontFamily="@font/century_regular"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="14">
+
+        <ImageButton
+            android:id="@+id/project1Image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:layout_margin="30dp"/>
+
+        <TextView
+            android:id="@+id/txtproject1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Project1"
+            android:fontFamily="@font/century_regular"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_below="@id/project1Image"
+            android:layout_alignRight="@id/project1Image"
+            android:layout_alignLeft="@id/project1Image"
+            android:gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/project2Image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:layout_toRightOf="@id/project1Image"
+            android:layout_alignBottom="@id/project1Image"
+            android:layout_marginLeft="50dp"/>
+
+        <TextView
+            android:id="@+id/txtproject2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Project2"
+            android:fontFamily="@font/century_regular"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_below="@id/project2Image"
+            android:layout_alignRight="@id/project2Image"
+            android:layout_alignLeft="@id/project2Image"
+            android:gravity="center"
+            android:layout_marginTop="20dp"/>
+
+        <ImageButton
+            android:id="@+id/add3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add"
+            android:background="@color/transparent"
+            android:layout_below="@id/txtproject1"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add new project"
+            android:fontFamily="@font/century_regular"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_below="@id/add3"
+            android:layout_alignRight="@id/add3"
+            android:layout_alignLeft="@id/add3"
+            android:gravity="center"
+            android:layout_marginTop="20dp"/>
+
+        <ImageButton
+            android:id="@+id/add4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add"
+            android:layout_toRightOf="@id/add3"
+            android:layout_alignBottom="@id/add3"
+            android:background="@color/transparent"
+            android:layout_marginLeft="80dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add new project"
+            android:fontFamily="@font/century_regular"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_below="@id/add4"
+            android:layout_alignRight="@id/add4"
+            android:layout_alignLeft="@id/add4"
+            android:gravity="center"
+            android:layout_marginTop="20dp"/>
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

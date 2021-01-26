@@ -1,42 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity"
-    android:background="@color/White">
+    android:background="@color/White"
+    android:weightSum="10"
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/mainPage"
+        android:id="@+id/headPage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"
-        android:background="@color/White">
+        android:layout_height="0dp"
+        android:layout_weight="2">
 
         <TextView
             android:id="@+id/nomApp"
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/opensans"
+            android:fontFamily="@font/century_regular"
             android:gravity="center_horizontal"
             android:text="@string/app_name"
             android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="25sp" />
+            android:textColor="@color/black"
+            android:textSize="25sp"/>
 
 
         <View
-            android:id="@+id/bar"
-            android:layout_width="300dp"
+            android:id="@+id/barre"
+            android:layout_width="370dp"
             android:layout_height="1dp"
             android:layout_below="@id/nomApp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:background="#000000" />
+            android:background="#4D000000"/>
 
+        <TextView
+            android:id="@+id/welcomeUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcomeUser"
+            android:fontFamily="@font/century_regular"
+            android:layout_below="@id/barre"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="10dp" />
+
+        <ImageButton
+            android:id="@+id/userBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/briefing"
+            android:layout_below="@id/barre"
+            android:layout_toRightOf="@id/welcomeUser"
+            android:layout_marginLeft="160dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/welcomeUser"
+            android:layout_marginStart="160dp"
+            android:contentDescription="@string/userbtn" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/middlePage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottomPage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
 
         <com.google.android.material.tabs.TabLayout
@@ -44,39 +89,26 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/bar"
             android:background="#FFFFFF"
-            app:tabIndicatorColor="#040404">
+            app:tabIndicatorColor="#040404"
+            app:tabTextAppearance="@style/tabTxt">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/pay"
+                android:id="@+id/simulate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/pay"/>
+                android:icon="@drawable/pay"
+                android:text="@string/simulate"/>
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/graphics"
+                android:id="@+id/table"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/graph" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/users"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/person" />
-
+                android:icon="@drawable/graph"
+                android:text="@string/data"/>
 
         </com.google.android.material.tabs.TabLayout>
 
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/toolbar"/>
-
-
     </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

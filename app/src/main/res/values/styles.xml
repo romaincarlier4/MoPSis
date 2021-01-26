@@ -7,4 +7,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="tabTxt" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/century_regular</item>
+    </style>
+
+    <style name="WindowAnimations">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+    </style>
+
 </resources>

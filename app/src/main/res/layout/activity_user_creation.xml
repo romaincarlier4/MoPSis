@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserCreation"
+    android:orientation="vertical"
+    android:weightSum="20">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Project creation"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:fontFamily="@font/century_regular"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:id="@+id/nameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Project's name"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/century_regular"
+            android:layout_marginLeft="20dp"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/nameEdit"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:fontFamily="@font/century_regular"
+            android:layout_below="@id/nameTxt"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/amountTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount necessary"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/century_regular"
+            android:layout_below="@id/nameEdit"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/amountEdit"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:inputType="number"
+            android:layout_below="@id/amountTxt"
+            android:fontFamily="@font/century_regular"
+            android:layout_marginLeft="30dp"
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/projectType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Project's type"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/century_regular"
+            android:layout_below="@id/amountEdit"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageButton
+            android:id="@+id/graduateBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/graduated"
+            android:layout_toLeftOf="@id/carBtn"
+            android:layout_alignBottom="@id/carBtn"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@color/transparent"/>
+
+        <ImageButton
+            android:id="@+id/carBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/babycar"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/projectType"
+            android:layout_marginTop="20dp"
+            android:background="@color/transparent"/>
+
+        <ImageButton
+            android:id="@+id/houseBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/house"
+            android:layout_toRightOf="@id/carBtn"
+            android:layout_alignBottom="@id/carBtn"
+            android:layout_marginLeft="30dp"
+            android:background="@color/transparent"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:fontFamily="@font/century_regular"
+            android:layout_marginLeft="40dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/cancelBtn"
+            android:text="Save"
+            android:fontFamily="@font/century_regular"
+            android:textColor="@color/black"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
