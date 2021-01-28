@@ -9,12 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UpdateUser1"/>
-        <activity android:name=".CreateUser1Activity" />
-        <activity android:name=".CreateUser2Activity" />
-        <activity android:name=".CreateUser3Activity" />
-        <activity android:name=".UpdateUser2"/>
-        <activity android:name=".UpdateUser3"/>
+        <activity android:name=".ModifyProject"></activity>
+        <activity android:name=".UserCreation" />
+        <activity android:name=".UserActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

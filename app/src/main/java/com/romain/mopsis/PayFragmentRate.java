@@ -1,7 +1,9 @@
 package com.romain.mopsis;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,27 +16,19 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
-
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PayFragmentMonths#newInstance} factory method to
+ * Use the {@link PayFragmentRate#newInstance} factory method to
  * create an instance of this fragment.
  */
+public class PayFragmentRate extends Fragment {
 
-public class PayFragmentMonths extends Fragment{
-
-    TextView amountTxt;
     EditText amountEdit;
-    TextView rateTxt;
-    EditText rateEdit;
-    TextView durationTxt;
+    EditText monthsEdit;
     EditText durationEdit;
-    Spinner typeEdit;
-    TextView monthsTitle;
-    TextView monthsTxt;
-    TextView totalTitle;
-    TextView totalTxt;
-    Spinner choiceCalculate;
+    Spinner type;
+    TextView rateResult;
+    TextView totalResult;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,7 +39,7 @@ public class PayFragmentMonths extends Fragment{
     private String mParam1;
     private String mParam2;
 
-    public PayFragmentMonths() {
+    public PayFragmentRate() {
         // Required empty public constructor
     }
 
@@ -55,11 +49,11 @@ public class PayFragmentMonths extends Fragment{
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PayFragment.
+     * @return A new instance of fragment PayFragmentRate.
      */
     // TODO: Rename and change types and number of parameters
-    public static PayFragmentMonths newInstance(String param1, String param2) {
-        PayFragmentMonths fragment = new PayFragmentMonths();
+    public static PayFragmentRate newInstance(String param1, String param2) {
+        PayFragmentRate fragment = new PayFragmentRate();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,26 +70,18 @@ public class PayFragmentMonths extends Fragment{
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_pay_months, container, false);
-
-        amountTxt = rootView.findViewById(R.id.montant);
+        View rootView =  inflater.inflate(R.layout.fragment_pay_rate, container, false);
         amountEdit = rootView.findViewById(R.id.montant_emprunte);
-        rateTxt = rootView.findViewById(R.id.taux);
-        rateEdit = rootView.findViewById(R.id.taux_nombre);
-        durationTxt = rootView.findViewById(R.id.durée);
+        monthsEdit = rootView.findViewById(R.id.mensualitéEdit);
         durationEdit = rootView.findViewById(R.id.durée_nombre);
-        typeEdit = rootView.findViewById(R.id.spinner);
-        monthsTitle = rootView.findViewById(R.id.mensualité);
-        monthsTxt = rootView.findViewById(R.id.mensualite_result);
-        totalTitle = rootView.findViewById(R.id.total);
-        totalTxt = rootView.findViewById(R.id.total_result);
-        //creation des listeners
+        type = rootView.findViewById(R.id.spinner);
+        rateResult = rootView.findViewById(R.id.taux_nombre);
+        totalResult = rootView.findViewById(R.id.total_result);
+
         amountEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -116,7 +102,7 @@ public class PayFragmentMonths extends Fragment{
                     amountEdit.setSelection(new_string.length());
                     amountEdit.addTextChangedListener(this);
 
-                    dynamicCalculMonths();
+                    dynamicCalculRate();
                 }
             }
 
@@ -125,14 +111,27 @@ public class PayFragmentMonths extends Fragment{
 
             }
         });
-        rateEdit.addTextChangedListener(new TextWatcher() {
+        monthsEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                dynamicCalculMonths();
+                String input = charSequence.toString();
+
+                if (!input.isEmpty()) {
+
+                    monthsEdit.removeTextChangedListener(this);
+
+                    String new_string = spacer(input);
+
+                    monthsEdit.setText(new_string);
+                    monthsEdit.setSelection(new_string.length());
+                    monthsEdit.addTextChangedListener(this);
+
+                    dynamicCalculRate();
+                }
             }
 
             @Override
@@ -159,7 +158,7 @@ public class PayFragmentMonths extends Fragment{
                     durationEdit.setSelection(new_string.length());
                     durationEdit.addTextChangedListener(this);
 
-                    dynamicCalculMonths();
+                    dynamicCalculRate();
                 }
 
             }
@@ -168,33 +167,41 @@ public class PayFragmentMonths extends Fragment{
             public void afterTextChanged(Editable editable) {
             }
         });
-        typeEdit.setOnItemSelectedListener(spinnerListener);
-
+        type.setOnItemSelectedListener(spinnerListener);
         return rootView;
     }
 
-    // METHODE AUXILLIAIRES
-    //Calcul dynamique
-    public void dynamicCalculMonths(){
+    private AdapterView.OnItemSelectedListener spinnerListener = new AdapterView.OnItemSelectedListener() {
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            dynamicCalculRate();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {}
+    };
+
+    public void dynamicCalculRate(){
         String amount = amountEdit.getText().toString();
-        String taux = rateEdit.getText().toString();
+        String months = monthsEdit.getText().toString();
         String duration = durationEdit.getText().toString();
-        String type_pret = typeEdit.getSelectedItem().toString();
+        String type_pret = type.getSelectedItem().toString();
         amount = strip(amount);
-        taux = strip(taux);
+        months = strip(months);
         duration = strip(duration);
         double capital = 0;
-        double rate = 0;
+        double monthly = 0;
         double years = 0;
         Boolean empty;
 
-        if (amount.isEmpty() || taux.isEmpty() || duration.isEmpty()){
-            monthsTxt.setText("");
-            totalTxt.setText("");
+        if (amount.isEmpty() || months.isEmpty() || duration.isEmpty()){
+            rateResult.setText("");
+            totalResult.setText("");
             empty = true;
         } else {
             capital = Double.parseDouble(amount);
-            rate = Double.parseDouble(taux);
+            monthly = Double.parseDouble(months);
             years = Double.parseDouble(duration);
             empty  = false;
         }
@@ -202,28 +209,35 @@ public class PayFragmentMonths extends Fragment{
         // Calcul des mensualités et de l'interet total pour l'annuité constante
         if (type_pret.equals(getResources().getString(R.string.annuite)) && !empty) {
 
-            double annualRefund = (capital * rate / 100) / (1 - (Math.pow((1 + rate / 100), -years)));
-            double monthlyRefund = (double)Math.round(annualRefund/12*100)/100;
+            String resultRate = "hello";
+            double currentError = 1;
 
-            String result_month = Double.toString(monthlyRefund);
-            monthsTxt.setText(decimal_spacer(result_month)+" €");
-            monthsTxt.setTextColor(getResources().getColor(R.color.black));
-            monthsTxt.setBackground(getResources().getDrawable(R.drawable.border));
+            for (double i = 0; i < 1; i+=0.001) {
+                double currentMonthly = (capital * i ) / (1 - (Math.pow((1 + i), -years)))/12;
+                if(Math.abs(currentMonthly-monthly)<1){
+                    if(Math.abs(currentMonthly-monthly)<currentError)
+                        resultRate = Double.toString(i);
+                }
+            }
+
+            /*rateResult.setText(decimal_spacer(resultRate)+" %");
+            rateResult.setTextColor(getResources().getColor(R.color.black));
+            rateResult.setBackground(getResources().getDrawable(R.drawable.border));*/
 
 
-            double interestAndCapital = (double)Math.round((monthlyRefund * 12 * years)*100)/100;
+            double interestAndCapital = (double)Math.round((monthly * 12 * years)*100)/100;
 
             String result_total = Double.toString(interestAndCapital);
-            totalTxt.setText(decimal_spacer(result_total)+ " €");
-            totalTxt.setTextColor(getResources().getColor(R.color.black));
-            totalTxt.setBackground(getResources().getDrawable(R.drawable.border));
+//            totalResult.setText(decimal_spacer(result_total)+ " €");
+//            totalResult.setTextColor(getResources().getColor(R.color.black));
+//            totalResult.setBackground(getResources().getDrawable(R.drawable.border));
+//
+//            amountEdit.setHintTextColor(getResources().getColor(R.color.hint_default));
+//            monthsEdit.setHintTextColor(getResources().getColor(R.color.hint_default));
+//            durationEdit.setHintTextColor(getResources().getColor(R.color.hint_default));
 
-            amountEdit.setHintTextColor(getResources().getColor(R.color.hint_default));
-            rateEdit.setHintTextColor(getResources().getColor(R.color.hint_default));
-            durationEdit.setHintTextColor(getResources().getColor(R.color.hint_default));
-
-        // Calcul des mensualites et de l'interet total pour le capital fixe
-        } else if (type_pret.equals(getResources().getString(R.string.capital)) && !empty) {
+            // Calcul des mensualites et de l'interet total pour le capital fixe
+        } /*else if (type_pret.equals(getResources().getString(R.string.capital))) {
 
             double total_refund=0;
 
@@ -241,7 +255,7 @@ public class PayFragmentMonths extends Fragment{
             monthsTxt.setBackground(getResources().getDrawable(R.drawable.border));
 
         }
-        else if(type_pret.equals(getResources().getString(R.string.bullet)) && !empty){
+        else if(type_pret.equals(getResources().getString(R.string.bullet))){
             double total_refund=0;
             total_refund = capital + (capital*rate/100*years);
             totalTxt.setText(decimal_spacer(Double.toString(total_refund))+" €");
@@ -253,19 +267,7 @@ public class PayFragmentMonths extends Fragment{
             monthsTxt.setText(decimal_spacer(Double.toString(mensualites))+" €");
             monthsTxt.setTextColor(getResources().getColor(R.color.black));
             monthsTxt.setBackground(getResources().getDrawable(R.drawable.border));
-        }
-    }
-
-    //config Type spinner listener
-    private AdapterView.OnItemSelectedListener spinnerListener = new AdapterView.OnItemSelectedListener() {
-
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            dynamicCalculMonths();
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {}
+        }*/
     };
 
 
