@@ -13,7 +13,7 @@
         android:id="@+id/headPage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="3">
 
         <TextView
             android:id="@+id/nomApp"
@@ -62,13 +62,37 @@
             android:layout_toEndOf="@id/welcomeUser"
             android:layout_marginStart="160dp"
             android:contentDescription="@string/userbtn" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/whatCalculate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What would you like to calculate ?"
+            android:textColor="@color/black"
+            android:fontFamily="@font/century_regular"
+            android:textSize="20sp"
+            android:layout_below="@id/welcomeUser"/>
+
+        <Spinner
+            android:id="@+id/choiceCalculate"
+            android:layout_width="170dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="25dp"
+            android:layout_height="30dp"
+            android:background="@drawable/border"
+            android:entries="@array/choiceCalculate"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_below="@id/whatCalculate"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/middlePage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7">
+        android:layout_weight="6">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
@@ -91,7 +115,8 @@
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             app:tabIndicatorColor="#040404"
-            app:tabTextAppearance="@style/tabTxt">
+            app:tabTextAppearance="@style/tabTxt"
+            android:layout_marginTop="5dp">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/simulate"

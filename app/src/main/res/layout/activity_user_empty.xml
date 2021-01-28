@@ -28,23 +28,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="13"
-        android:layout_marginTop="50dp">
-        <TextView
-            android:id="@+id/welcome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/welcome"
-            android:fontFamily="@font/century_regular"
-            android:textSize="25sp"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:gravity="center_horizontal"/>
+        android:layout_marginTop="30dp">
 
         <TextView
             android:id="@+id/noProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/welcome"
             android:text="@string/you_have_no_profile_yet"
             android:fontFamily="@font/century_regular"
             android:textSize="25sp"

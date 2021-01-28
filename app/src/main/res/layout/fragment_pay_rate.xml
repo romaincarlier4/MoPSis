@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PayFragmentRate"
+    android:background="@color/White">
+    <LinearLayout
+        android:weightSum="20"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="6">
+
+        <TextView
+            android:id="@+id/loan_details"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:fontFamily="@font/century_regular"
+            android:text="@string/loan_details"
+            android:textColor="@color/blue"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/montant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/century_regular"
+            android:text="@string/montant_emprunt"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginStart="25dp"
+            android:layout_below="@id/loan_details"/>
+
+
+        <EditText
+            android:id="@+id/montant_emprunte"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginLeft="70dp"
+            android:background="@drawable/border"
+            android:fontFamily="@font/century_regular"
+            android:gravity="end"
+            android:hint="@string/montantHint"
+            android:inputType="numberDecimal"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="textEnd"
+            android:textCursorDrawable="@drawable/flashing_bar"
+            android:textSize="16sp"
+            android:layout_toRightOf="@id/montant"
+            android:layout_alignBaseline="@id/montant"/>
+
+
+        <TextView
+            android:id="@+id/mensualité"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/century_regular"
+            android:text="@string/monthly_payements"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_below="@id/montant" />
+
+        <EditText
+            android:id="@+id/mensualitéEdit"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:background="@drawable/border"
+            android:fontFamily="@font/century_regular"
+            android:gravity="end"
+            android:hint="@string/montantHint"
+            android:inputType="numberDecimal"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="textEnd"
+            android:textCursorDrawable="@drawable/flashing_bar"
+            android:textSize="16sp"
+            android:layout_toRightOf="@id/mensualité"
+            android:layout_alignBaseline="@id/mensualité"
+            android:layout_alignStart="@id/montant_emprunte"
+            android:layout_alignLeft="@id/montant_emprunte" />
+
+
+        <TextView
+            android:id="@+id/durée"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/century_regular"
+            android:text="@string/dur_e_ann_es"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_below="@id/mensualité" />
+
+        <EditText
+            android:id="@+id/durée_nombre"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:background="@drawable/border"
+            android:fontFamily="@font/century_regular"
+            android:gravity="end"
+            android:hint="@string/durationHint"
+            android:inputType="number"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="textEnd"
+            android:textCursorDrawable="@drawable/flashing_bar"
+            android:textSize="16sp"
+            android:layout_alignStart="@id/montant_emprunte"
+            android:layout_toRightOf="@id/durée"
+            android:layout_alignBaseline="@id/durée"
+            android:layout_alignLeft="@id/montant_emprunte" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/century_regular"
+            android:text="@string/type_de_pr_t"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_below="@id/durée" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:background="@drawable/border"
+            android:entries="@array/types"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_toRightOf="@id/type"
+            android:layout_alignBaseline="@id/type"
+            android:layout_alignStart="@id/montant_emprunte"
+            android:layout_alignLeft="@id/montant_emprunte" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="12">
+
+        <TextView
+            android:id="@+id/loan_calculations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:fontFamily="@font/century_regular"
+            android:text="@string/loan_calculations"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:layout_marginLeft="25dp"
+            android:id="@+id/taux"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/century_regular"
+            android:text="@string/taux_d_int_r_t"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_below="@id/loan_calculations" />
+
+        <TextView
+            android:id="@+id/taux_nombre"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="60dp"
+            android:background="@drawable/border"
+            android:fontFamily="@font/century_regular"
+            android:gravity="end"
+            android:hint="@string/to_be_calculated"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            android:layout_toRightOf="@id/taux"
+            android:layout_alignBaseline="@id/taux"/>
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_marginLeft="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/century_regular"
+            android:text="@string/total_with_interests"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_below="@id/taux" />
+
+        <TextView
+            android:id="@+id/total_result"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:background="@drawable/border"
+            android:fontFamily="@font/century_regular"
+            android:gravity="end"
+            android:hint="@string/to_be_calculated"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            android:layout_toRightOf="@id/total"
+            android:layout_alignBaseline="@id/total"
+            android:layout_alignStart="@id/taux_nombre"
+            android:layout_alignLeft="@id/taux_nombre" />
+    </RelativeLayout>
+
+</LinearLayout>
+</androidx.core.widget.NestedScrollView>

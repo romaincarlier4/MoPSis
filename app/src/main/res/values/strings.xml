@@ -1,42 +1,46 @@
 <resources>
+    <string name="months">Monthly payements</string>
+    <string name="rate">Interest rate</string>
+    <string name="duration">Duration</string>
+    <string name="amount">Loan amount</string>
+    <string name="annuite">Constant annuity</string>
+    <string name="capital">Fixed capital</string>
+    <string name="bullet">Bullet</string>
     <string name="app_name">MoPSis Loan</string>
+    <string name="welcomeUser">Hello, User123</string>
+    <string name="userbtn">userBtn</string>
     <string name="page1">Home</string>
     <string name="page2">Personal Data</string>
     <string name="page3">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name_user">User 1</string>
-    <string name="montant_emprunt">Montant emprunté</string>
-    <string name="userName1">+ Add first profile</string>
-    <string name="userName2">+ Add second profile</string>
-    <string name="userName3">+ Add third profile</string>
-    <string name="create_new_user">Create new User</string>
-    <string name="your_name">Your name</string>
-    <string name="select_a_user_here">Select an user here :</string>
-    <string name="welcomeUser">Hello, User123</string>
-    <string name="userbtn">userBtn</string>
+    <string name="montant_emprunt">Loan amount</string>
     <string name="loan_details">Loan details :</string>
     <string name="montantHint">0,00€</string>
     <string name="simulate">Simulate</string>
     <string name="data">Data</string>
-    <string name="durationHint">0 années</string>
-    <string name="dur_e_ann_es">Durée(années)</string>
-    <string name="type_de_pr_t">Type de prêt</string>
+    <string name="durationHint">0 years</string>
+    <string name="dur_e_ann_es">Duration (years)</string>
+    <string name="type_de_pr_t">Loan type</string>
     <string name="loan_calculations">Loan calculations :</string>
     <string name="monthly_payements">Monthly payements</string>
     <string name="to_be_calculated">to be calculated</string>
     <string name="total_with_interests">Total with interests</string>
     <string name="you_have_no_profile_yet">You have no project yet.</string>
     <string name="create_your_first_account">Create your first project</string>
-    <string name="welcome">Welcome !</string>
     <string name="projects">PROJECTSARRAY</string>
+    <string name="taux_d_int_r_t">Interest rate</string>
 
     <string-array name="types">
-        <item>Annuité Constante</item>
-        <item>Capital fixe</item>
+        <item>Constant annuity</item>
+        <item>Fixed capital</item>
         <item>Bullet</item>
     </string-array>
 
-    <string-array name="usernames">
-        <item>USER</item>
+    <string-array name="choiceCalculate">
+        <item>Monthly payements</item>
+        <item>Interest rate</item>
+        <item>Duration</item>
+        <item>Loan amount</item>
     </string-array>
 </resources>
