@@ -209,65 +209,63 @@ public class PayFragmentRate extends Fragment {
         // Calcul des mensualités et de l'interet total pour l'annuité constante
         if (type_pret.equals(getResources().getString(R.string.annuite)) && !empty) {
 
-            String resultRate = "hello";
+            String resultRate = "";
             double currentError = 1;
 
-            for (double i = 0; i < 1; i+=0.001) {
+            for (double i = 0; i < 1; i+=0.0001) {
                 double currentMonthly = (capital * i ) / (1 - (Math.pow((1 + i), -years)))/12;
                 if(Math.abs(currentMonthly-monthly)<1){
                     if(Math.abs(currentMonthly-monthly)<currentError)
-                        resultRate = Double.toString(i);
+                        resultRate = Double.toString((double)Math.round(i*1000)/1000*100);
                 }
             }
 
-            /*rateResult.setText(decimal_spacer(resultRate)+" %");
+            rateResult.setText(resultRate+" %");
             rateResult.setTextColor(getResources().getColor(R.color.black));
-            rateResult.setBackground(getResources().getDrawable(R.drawable.border));*/
+            rateResult.setBackground(getResources().getDrawable(R.drawable.border));
 
 
             double interestAndCapital = (double)Math.round((monthly * 12 * years)*100)/100;
 
             String result_total = Double.toString(interestAndCapital);
-//            totalResult.setText(decimal_spacer(result_total)+ " €");
-//            totalResult.setTextColor(getResources().getColor(R.color.black));
-//            totalResult.setBackground(getResources().getDrawable(R.drawable.border));
-//
-//            amountEdit.setHintTextColor(getResources().getColor(R.color.hint_default));
-//            monthsEdit.setHintTextColor(getResources().getColor(R.color.hint_default));
-//            durationEdit.setHintTextColor(getResources().getColor(R.color.hint_default));
+            totalResult.setText(decimal_spacer(result_total)+ " €");
+            totalResult.setTextColor(getResources().getColor(R.color.black));
+            totalResult.setBackground(getResources().getDrawable(R.drawable.border));
+
+            amountEdit.setHintTextColor(getResources().getColor(R.color.hint_default));
+            monthsEdit.setHintTextColor(getResources().getColor(R.color.hint_default));
+            durationEdit.setHintTextColor(getResources().getColor(R.color.hint_default));
 
             // Calcul des mensualites et de l'interet total pour le capital fixe
-        } /*else if (type_pret.equals(getResources().getString(R.string.capital))) {
+        } else if (type_pret.equals(getResources().getString(R.string.capital)) && !empty) {
 
-            double total_refund=0;
+            double rate = 0;
+            double total = 0;
 
-            for (int i = 1; i < Double.parseDouble(duration)+1; i++) {
-                total_refund+= (capital)/(years)*(1+(rate/100)*(years-i+1));
-            }
-            totalTxt.setText(decimal_spacer(Double.toString(total_refund))+" €");
-            totalTxt.setTextColor(getResources().getColor(R.color.black));
-            totalTxt.setBackground(getResources().getDrawable(R.drawable.border));
 
-            double mensualiteMoyenne;
-            mensualiteMoyenne = total_refund/years/12;
-            monthsTxt.setText(decimal_spacer(Double.toString(mensualiteMoyenne))+" €");
-            monthsTxt.setTextColor(getResources().getColor(R.color.black));
-            monthsTxt.setBackground(getResources().getDrawable(R.drawable.border));
+            totalResult.setText(decimal_spacer(Double.toString(total))+" €");
+            totalResult.setTextColor(getResources().getColor(R.color.black));
+            totalResult.setBackground(getResources().getDrawable(R.drawable.border));
+
+
+            rateResult.setText(Double.toString(rate)+" %");
+            rateResult.setTextColor(getResources().getColor(R.color.black));
+            rateResult.setBackground(getResources().getDrawable(R.drawable.border));
 
         }
         else if(type_pret.equals(getResources().getString(R.string.bullet))){
-            double total_refund=0;
-            total_refund = capital + (capital*rate/100*years);
-            totalTxt.setText(decimal_spacer(Double.toString(total_refund))+" €");
-            totalTxt.setTextColor(getResources().getColor(R.color.black));
-            totalTxt.setBackground(getResources().getDrawable(R.drawable.border));
+            double rate = 0;
+            double total = 0;
 
-            double mensualites;
-            mensualites = capital*rate/100/12;
-            monthsTxt.setText(decimal_spacer(Double.toString(mensualites))+" €");
-            monthsTxt.setTextColor(getResources().getColor(R.color.black));
-            monthsTxt.setBackground(getResources().getDrawable(R.drawable.border));
-        }*/
+            totalResult.setText(decimal_spacer(Double.toString(total))+" €");
+            totalResult.setTextColor(getResources().getColor(R.color.black));
+            totalResult.setBackground(getResources().getDrawable(R.drawable.border));
+
+
+            rateResult.setText(Double.toString(rate)+" %");
+            rateResult.setTextColor(getResources().getColor(R.color.black));
+            rateResult.setBackground(getResources().getDrawable(R.drawable.border));
+        }
     };
 
 

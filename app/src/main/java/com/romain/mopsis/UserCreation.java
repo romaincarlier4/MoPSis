@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,6 +30,7 @@ public class UserCreation extends AppCompatActivity {
     ImageButton houseBtn;
     ImageButton graduateBtn;
     String type;
+    TextView errorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class UserCreation extends AppCompatActivity {
         carBtn = findViewById(R.id.carBtn);
         houseBtn = findViewById(R.id.houseBtn);
         graduateBtn = findViewById(R.id.graduateBtn);
+        errorMessage = findViewById(R.id.errorMessage);
 
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -58,19 +61,27 @@ public class UserCreation extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.projects), MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 String projectArray = sharedPreferences.getString(getResources().getString(R.string.projects),"");
-                System.out.println(type);
-                Project newProject = new Project(projectName.getText().toString(),Integer.parseInt(amount.getText().toString()), type);
-                Gson gson = new Gson();
-                Type cls = new TypeToken< ArrayList < Project >>() {}.getType();
-                ArrayList<Project> projects = gson.fromJson(projectArray,cls);
-                if(projects==null){
-                    projects = new ArrayList<>();
+                if(projectName.getText().toString().equals("") || amount.getText().toString().equals("") || type==null){
+                    errorMessage.setText("You must complete all fields");
+                    errorMessage.setVisibility(View.VISIBLE);
                 }
-                projects.add(newProject);
-                editor.putString(getResources().getString(R.string.projects),gson.toJson(projects));
-                editor.apply();
-                Intent intent = new Intent(view.getContext(),UserActivity.class);
-                view.getContext().startActivity(intent);
+                else {
+                    Project newProject = new Project(projectName.getText().toString(), Integer.parseInt(amount.getText().toString()), type);
+                    Gson gson = new Gson();
+                    Type cls = new TypeToken<ArrayList<Project>>() {
+                    }.getType();
+                    ArrayList<Project> projects = gson.fromJson(projectArray, cls);
+                    if (projects == null) {
+                        projects = new ArrayList<>();
+                    }
+                    projects.add(newProject);
+                    editor.putString(getResources().getString(R.string.projects), gson.toJson(projects));
+                    editor.apply();
+                    errorMessage.setText("");
+                    errorMessage.setVisibility(View.INVISIBLE);
+                    Intent intent = new Intent(view.getContext(), UserActivity.class);
+                    view.getContext().startActivity(intent);
+                }
             }
         });
 
