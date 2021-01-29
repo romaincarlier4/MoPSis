@@ -13,7 +13,7 @@
         android:id="@+id/headPage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
+        android:layout_weight="4">
 
         <TextView
             android:id="@+id/nomApp"
@@ -63,6 +63,43 @@
             android:layout_marginStart="160dp"
             android:contentDescription="@string/userbtn" />
 
+        <ImageButton
+            android:id="@+id/project1Home"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/welcomeUser"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"/>
+
+        <ImageButton
+            android:id="@+id/project2Home"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@id/project1Home"
+            android:layout_alignBottom="@id/project1Home"
+            android:layout_marginLeft="20dp"
+            android:padding="10dp"/>
+
+        <ImageButton
+            android:id="@+id/project3Home"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@id/project2Home"
+            android:layout_alignBottom="@id/project2Home"
+            android:layout_marginLeft="20dp"
+            android:padding="10dp"/>
+
+        <ImageButton
+            android:id="@+id/project4Home"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@id/project3Home"
+            android:layout_alignBottom="@id/project3Home"
+            android:background="@color/transparent"
+            android:layout_marginLeft="20dp"
+            android:padding="10dp"/>
+
         <TextView
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
@@ -73,7 +110,7 @@
             android:textColor="@color/black"
             android:fontFamily="@font/century_regular"
             android:textSize="20sp"
-            android:layout_below="@id/welcomeUser"/>
+            android:layout_below="@id/project1Home"/>
 
         <Spinner
             android:id="@+id/choiceCalculate"
@@ -92,7 +129,7 @@
         android:id="@+id/middlePage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6">
+        android:layout_weight="5">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"

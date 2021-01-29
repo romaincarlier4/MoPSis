@@ -16,6 +16,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     Spinner choice;
     Fragment toDisplay;
     Boolean choiceInit = false;
+    ImageButton project1;
+    ImageButton project2;
+    ImageButton project3;
+    ImageButton project4;
 
 
     @Override
@@ -131,9 +140,99 @@ public class MainActivity extends AppCompatActivity {
                     view.getContext().startActivity(intent);
                 }
             });
+
+            project1 = findViewById(R.id.project1Home);
+            project2 = findViewById(R.id.project2Home);
+            project3 = findViewById(R.id.project3Home);
+            project4 = findViewById(R.id.project4Home);
+
+            project1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    view.setBackground(getResources().getDrawable(R.drawable.btnborder));
+                }
+            });
+            project2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    view.setBackground(getResources().getDrawable(R.drawable.btnborder));
+                }
+            });
+            project3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    view.setBackground(getResources().getDrawable(R.drawable.btnborder));
+                }
+            });
+            project4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    view.setBackground(getResources().getDrawable(R.drawable.btnborder));
+                }
+            });
+
+            SharedPreferences sharedPreferencesProjects = getSharedPreferences(getResources().getString(R.string.projects),MODE_PRIVATE);
+            String projectsArray = sharedPreferencesProjects.getString(getResources().getString(R.string.projects),"");
+            Gson gson = new Gson();
+            Type cls = new TypeToken<ArrayList<Project>>(){}.getType();
+            ArrayList<Project> projects = gson.fromJson(projectsArray, cls);
+            String[] images = new String[projects.size()];
+            for (int i = 0; i < projects.size(); i++) {
+                images[i] = projects.get(i).getType();
+            }
+            switch (projects.size()){
+                case 0 :
+                    project1.setVisibility(View.INVISIBLE);
+                    project2.setVisibility(View.INVISIBLE);
+                    project3.setVisibility(View.INVISIBLE);
+                    project4.setVisibility(View.INVISIBLE);
+                    break;
+                case 1 :
+                    project1.setVisibility(View.VISIBLE);
+                    setSrc(project1, images[0]);
+                    project2.setVisibility(View.INVISIBLE);
+                    project3.setVisibility(View.INVISIBLE);
+                    project4.setVisibility(View.INVISIBLE);
+                    break;
+                case 2 :
+                    project1.setVisibility(View.VISIBLE);
+                    setSrc(project1, images[0]);
+                    project2.setVisibility(View.VISIBLE);
+                    setSrc(project2, images[1]);
+                    project3.setVisibility(View.INVISIBLE);
+                    project4.setVisibility(View.INVISIBLE);
+                    break;
+                case 3 :
+                    project1.setVisibility(View.VISIBLE);
+                    setSrc(project1, images[0]);
+                    project2.setVisibility(View.VISIBLE);
+                    setSrc(project2, images[1]);
+                    project3.setVisibility(View.VISIBLE);
+                    setSrc(project3, images[2]);
+                    project4.setVisibility(View.INVISIBLE);
+                    break;
+                case 4 :
+                    project1.setVisibility(View.VISIBLE);
+                    setSrc(project1, images[0]);
+                    project2.setVisibility(View.VISIBLE);
+                    setSrc(project2, images[1]);
+                    project3.setVisibility(View.VISIBLE);
+                    setSrc(project3, images[2]);
+                    project4.setVisibility(View.VISIBLE);
+                    setSrc(project4, images[3]);
+                    break;
+            }
         }
+    }
 
-
+    public void setSrc(ImageButton btn, String type){
+        if(type.equals("car")){
+            btn.setBackgroundResource(R.drawable.babycar);
+        } else if(type.equals("house")){
+            btn.setBackgroundResource(R.drawable.house);
+        } else{
+            btn.setBackgroundResource(R.drawable.graduated);
+        }
     }
 
 }
