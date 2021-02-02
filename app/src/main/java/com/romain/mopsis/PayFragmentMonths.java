@@ -1,5 +1,7 @@
 package com.romain.mopsis;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.text.Editable;
@@ -12,7 +14,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 
 /**
@@ -34,7 +41,7 @@ public class PayFragmentMonths extends Fragment{
     TextView monthsTxt;
     TextView totalTitle;
     TextView totalTxt;
-    Spinner choiceCalculate;
+    int id;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -95,6 +102,15 @@ public class PayFragmentMonths extends Fragment{
         monthsTxt = rootView.findViewById(R.id.mensualite_result);
         totalTitle = rootView.findViewById(R.id.total);
         totalTxt = rootView.findViewById(R.id.total_result);
+        id = ((MainActivity)getActivity()).id;
+
+        amountEdit.setText("");
+        rateEdit.setText("");
+        durationEdit.setText("");
+
+        if (id != -1){
+            loadData(getContext(),id);
+        }
         //creation des listeners
         amountEdit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -104,6 +120,7 @@ public class PayFragmentMonths extends Fragment{
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                id = ((MainActivity)getActivity()).id;
                 String input = charSequence.toString();
 
                 if (!input.isEmpty()) {
@@ -117,6 +134,9 @@ public class PayFragmentMonths extends Fragment{
                     amountEdit.addTextChangedListener(this);
 
                     dynamicCalculMonths();
+                    if(id!=-1) {
+                        saveData(getContext(), id);
+                    }
                 }
             }
 
@@ -132,7 +152,11 @@ public class PayFragmentMonths extends Fragment{
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                id = ((MainActivity)getActivity()).id;
                 dynamicCalculMonths();
+                if(id!=-1) {
+                    saveData(getContext(), id);
+                }
             }
 
             @Override
@@ -146,6 +170,7 @@ public class PayFragmentMonths extends Fragment{
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                id = ((MainActivity)getActivity()).id;
 
                 String input = charSequence.toString();
 
@@ -160,6 +185,9 @@ public class PayFragmentMonths extends Fragment{
                     durationEdit.addTextChangedListener(this);
 
                     dynamicCalculMonths();
+                    if(id!=-1) {
+                        saveData(getContext(), id);
+                    }
                 }
 
             }
@@ -261,7 +289,11 @@ public class PayFragmentMonths extends Fragment{
 
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            id = ((MainActivity)getActivity()).id;
             dynamicCalculMonths();
+            if(id!=-1) {
+                saveData(getContext(), id);
+            }
         }
 
         @Override
@@ -292,5 +324,49 @@ public class PayFragmentMonths extends Fragment{
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         String groupingSeparator = String.valueOf(decimalFormat.getDecimalFormatSymbols().getGroupingSeparator());
         return number.replace(groupingSeparator, "");
+    }
+
+    private void saveData(Context context, int id){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.projects),Context.MODE_PRIVATE);
+        String projectsArray = sharedPreferences.getString(context.getResources().getString(R.string.projects),"");
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        Type cls = new TypeToken<ArrayList<Project>>(){}.getType();
+        ArrayList<Project> projects = gson.fromJson(projectsArray, cls);
+        Project projectToSave = projects.get(id);
+        projectToSave.setStatus("months");
+        projectToSave.setType(typeEdit.getSelectedItemPosition());
+        projectToSave.setAmount(amountEdit.getText().toString().equals("") ? 0 : Double.parseDouble(strip(amountEdit.getText().toString())));
+        projectToSave.setRate(rateEdit.getText().toString().equals("") ? 0 : Double.parseDouble(strip(rateEdit.getText().toString())));
+        projectToSave.setDuration(durationEdit.getText().toString().equals("") ? 0 : Double.parseDouble(strip(durationEdit.getText().toString())));
+        projects.set(id,projectToSave);
+        String pro = gson.toJson(projects);
+        editor.putString(context.getResources().getString(R.string.projects),pro);
+        editor.apply();
+    }
+
+    public void loadData(Context context, int id){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.projects),Context.MODE_PRIVATE);
+        String projectsArray = sharedPreferences.getString(context.getResources().getString(R.string.projects),"");
+        Gson gson = new Gson();
+        Type cls = new TypeToken<ArrayList<Project>>(){}.getType();
+        ArrayList<Project> projects = gson.fromJson(projectsArray, cls);
+        Project toShow = projects.get(id);
+        String status = toShow.getStatus();
+        if(status == null){
+            status = "months";
+        }
+        if(status.equals("months")){
+            String amount = String.valueOf(toShow.getAmount());
+            String rate = String.valueOf(toShow.getRate());
+            String duration = String.valueOf(toShow.getDuration());
+            int type = toShow.getType();
+            System.out.println(amount);
+            amountEdit.setText(spacer(amount));
+            rateEdit.setText(rate);
+            durationEdit.setText(spacer(duration));
+            typeEdit.setSelection(type);
+            dynamicCalculMonths();
+        }
     }
 }

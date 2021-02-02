@@ -11,14 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ModifyProject extends AppCompatActivity {
     Button saveBtn;
@@ -55,11 +53,11 @@ public class ModifyProject extends AppCompatActivity {
         projectName.setText(toModify.getName());
         amount.setText(String.valueOf(toModify.getAmount()));
         System.out.println(toModify.getType());
-        if(toModify.getType().equals("car")){
+        if(toModify.getImageTypeString().equals("car")){
             carBtn.setBackground(getResources().getDrawable(R.drawable.btnborder));
             houseBtn.setBackgroundColor(getResources().getColor(R.color.transparent));
             graduateBtn.setBackgroundColor(getResources().getColor(R.color.transparent));
-        } else if(toModify.getType().equals("house")){
+        } else if(toModify.getImageTypeString().equals("house")){
             houseBtn.setBackground(getResources().getDrawable(R.drawable.btnborder));
             carBtn.setBackgroundColor(getResources().getColor(R.color.transparent));
             graduateBtn.setBackgroundColor(getResources().getColor(R.color.transparent));
@@ -76,7 +74,7 @@ public class ModifyProject extends AppCompatActivity {
                 int newAmount = Integer.parseInt(amount.getText().toString());
                 toModify.setAmount(newAmount);
                 toModify.setName(newName);
-                toModify.setType(type);
+                toModify.setImageTypeString(type);
                 projects.set(Integer.parseInt(projectToModify)-1,toModify);
                 Gson gson = new Gson();
                 editor.putString(getResources().getString(R.string.projects),gson.toJson(projects));

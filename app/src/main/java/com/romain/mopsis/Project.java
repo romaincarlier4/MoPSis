@@ -2,19 +2,33 @@ package com.romain.mopsis;
 
 public class Project {
     private String name;
-    private String type;
+    private String ImageTypeString;
     private double amount;
     private double rate;
     private double duration;
-    private double loanType;
+    private int type;
     private double monthly;
     private String status;
 
-    public Project(String name, int amount, String type){
+    public Project(String name, int amount,String ImageTypeString){
         this.name = name;
         this.amount = amount;
-        this.type = type;
+        this.ImageTypeString = ImageTypeString;
+        this.amount = 0;
+        this.rate = 0;
+        this.duration = 0;
+        this.type = 0;
+        this.monthly = 0;
     }
+
+    public String getImageTypeString() {
+        return ImageTypeString;
+    }
+
+    public void setImageTypeString(String imageTypeString) {
+        this.ImageTypeString = imageTypeString;
+    }
+
 
     public String getName(){
         return this.name;
@@ -30,11 +44,11 @@ public class Project {
 
     public void setAmount(double amount){this.amount = amount;}
 
-    public String getType(){
+    public int getType(){
         return this.type;
     }
 
-    public void setType(String type){
+    public void setType(int type){
         this.type = type;
     }
 
@@ -58,13 +72,6 @@ public class Project {
         this.duration = duration;
     }
 
-    public double getLoanType() {
-        return loanType;
-    }
-
-    public void setLoanType(double loanType) {
-        this.loanType = loanType;
-    }
 
     public double getMonthly() {
         return monthly;

@@ -85,7 +85,7 @@ public class UserActivity extends AppCompatActivity {
                     }
                 });
                 String proName = projects.get(0).getName();
-                String proType = projects.get(0).getType();
+                String proType = projects.get(0).getImageTypeString();
                 System.out.println(proType);
                 if(proType.equals("car")){
                     oneUserProject1.setBackgroundResource(R.drawable.bigcar);
@@ -137,9 +137,9 @@ public class UserActivity extends AppCompatActivity {
                     }
                 });
                 String proName1 = projects.get(0).getName();
-                String proType1 = projects.get(0).getType();
+                String proType1 = projects.get(0).getImageTypeString();
                 String proName2 = projects.get(1).getName();
-                String proType2 = projects.get(1).getType();
+                String proType2 = projects.get(1).getImageTypeString();
                 if(proType1.equals("car")){
                     twoUserProject1.setBackgroundResource(R.drawable.bigcar);
                 } else if (proType1.equals("house")){
@@ -200,11 +200,11 @@ public class UserActivity extends AppCompatActivity {
                     }
                 });
                 String threeproName1 = projects.get(0).getName();
-                String threeproType1 = projects.get(0).getType();
+                String threeproType1 = projects.get(0).getImageTypeString();
                 String threeproName2 = projects.get(1).getName();
-                String threeproType2 = projects.get(1).getType();
+                String threeproType2 = projects.get(1).getImageTypeString();
                 String threeproName3 = projects.get(2).getName();
-                String threeproType3 = projects.get(2).getType();
+                String threeproType3 = projects.get(2).getImageTypeString();
                 if(threeproType1.equals("car")){
                     threeUserProject1.setBackgroundResource(R.drawable.bigcar);
                 } else if (threeproType1.equals("house")){
@@ -275,13 +275,13 @@ public class UserActivity extends AppCompatActivity {
                     }
                 });
                 String fourproName1 = projects.get(0).getName();
-                String fourproType1 = projects.get(0).getType();
+                String fourproType1 = projects.get(0).getImageTypeString();
                 String fourproName2 = projects.get(1).getName();
-                String fourproType2 = projects.get(1).getType();
+                String fourproType2 = projects.get(1).getImageTypeString();
                 String fourproName3 = projects.get(2).getName();
-                String fourproType3 = projects.get(2).getType();
+                String fourproType3 = projects.get(2).getImageTypeString();
                 String fourproName4 = projects.get(3).getName();
-                String fourproType4 = projects.get(3).getType();
+                String fourproType4 = projects.get(3).getImageTypeString();
                 if(fourproType1.equals("car")){
                     fourUserProject1.setBackgroundResource(R.drawable.bigcar);
                 } else if (fourproType1.equals("house")){

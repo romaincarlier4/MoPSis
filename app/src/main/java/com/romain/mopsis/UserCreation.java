@@ -31,6 +31,7 @@ public class UserCreation extends AppCompatActivity {
     ImageButton graduateBtn;
     String type;
     TextView errorMessage;
+    int typeID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

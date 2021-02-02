@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton project2;
     ImageButton project3;
     ImageButton project4;
+    public int id = -1;
+    String choiceCalc;
+    ViewPagerAdapter viewPagerAdapter;
 
 
     @Override
@@ -75,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
             });
-            String choiceCalc = getIntent().getStringExtra("toCalculate");
+
+            choiceCalc = getIntent().getStringExtra("toCalculate");
             if (choiceCalc == null){
                 choiceCalc = getResources().getString(R.string.months);
             }
@@ -93,13 +98,15 @@ public class MainActivity extends AppCompatActivity {
                 choice.setSelection(3);
             }
             TextView welcome = findViewById(R.id.welcomeUser);
-            welcome.setText("Hello, "+name+".");
+            welcome.setText("Hello, " + name + ".");
+
             //Gestion des fragments et de la tabLayout
+
             TabLayout tabLayout = findViewById(R.id.toolbar);
             final ViewPager viewPager = findViewById(R.id.viewPager);
             viewPager.setOffscreenPageLimit(2);
 
-            ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+            viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
             viewPagerAdapter.addFragment(toDisplay);
             viewPagerAdapter.addFragment(new GraphicsFragment());
@@ -145,40 +152,69 @@ public class MainActivity extends AppCompatActivity {
             project2 = findViewById(R.id.project2Home);
             project3 = findViewById(R.id.project3Home);
             project4 = findViewById(R.id.project4Home);
+            project1.setBackgroundColor(getResources().getColor(R.color.transparent));
+            project2.setBackgroundColor(getResources().getColor(R.color.transparent));
+            project3.setBackgroundColor(getResources().getColor(R.color.transparent));
+            project4.setBackgroundColor(getResources().getColor(R.color.transparent));
 
             project1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     view.setBackground(getResources().getDrawable(R.drawable.btnborder));
+                    project2.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    project3.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    project4.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    id = 0;
+                    getSupportFragmentManager().beginTransaction().detach(toDisplay).attach(toDisplay).commit();
                 }
             });
             project2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     view.setBackground(getResources().getDrawable(R.drawable.btnborder));
+                    project1.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    project3.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    project4.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    id = 1;
+                    getSupportFragmentManager().beginTransaction().detach(toDisplay).attach(toDisplay).commit();
                 }
             });
             project3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     view.setBackground(getResources().getDrawable(R.drawable.btnborder));
+                    project2.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    project1.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    project4.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    id = 2;
+                    getSupportFragmentManager().beginTransaction().detach(toDisplay).attach(toDisplay).commit();
                 }
             });
             project4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     view.setBackground(getResources().getDrawable(R.drawable.btnborder));
+                    project2.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    project3.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    project1.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    id = 3;
+                    getSupportFragmentManager().beginTransaction().detach(toDisplay).attach(toDisplay).commit();
                 }
             });
+
 
             SharedPreferences sharedPreferencesProjects = getSharedPreferences(getResources().getString(R.string.projects),MODE_PRIVATE);
             String projectsArray = sharedPreferencesProjects.getString(getResources().getString(R.string.projects),"");
             Gson gson = new Gson();
             Type cls = new TypeToken<ArrayList<Project>>(){}.getType();
             ArrayList<Project> projects = gson.fromJson(projectsArray, cls);
+
+            if(projects==null){
+                projects = new ArrayList<>();
+            }
             String[] images = new String[projects.size()];
             for (int i = 0; i < projects.size(); i++) {
-                images[i] = projects.get(i).getType();
+                images[i] = projects.get(i).getImageTypeString();
             }
             switch (projects.size()){
                 case 0 :
@@ -188,6 +224,8 @@ public class MainActivity extends AppCompatActivity {
                     project4.setVisibility(View.INVISIBLE);
                     break;
                 case 1 :
+                    id = 0;
+                    project1.setBackground(getResources().getDrawable(R.drawable.btnborder));
                     project1.setVisibility(View.VISIBLE);
                     setSrc(project1, images[0]);
                     project2.setVisibility(View.INVISIBLE);
@@ -195,6 +233,8 @@ public class MainActivity extends AppCompatActivity {
                     project4.setVisibility(View.INVISIBLE);
                     break;
                 case 2 :
+                    id = 0;
+                    project1.setBackground(getResources().getDrawable(R.drawable.btnborder));
                     project1.setVisibility(View.VISIBLE);
                     setSrc(project1, images[0]);
                     project2.setVisibility(View.VISIBLE);
@@ -203,6 +243,8 @@ public class MainActivity extends AppCompatActivity {
                     project4.setVisibility(View.INVISIBLE);
                     break;
                 case 3 :
+                    id = 0;
+                    project1.setBackground(getResources().getDrawable(R.drawable.btnborder));
                     project1.setVisibility(View.VISIBLE);
                     setSrc(project1, images[0]);
                     project2.setVisibility(View.VISIBLE);
@@ -212,6 +254,8 @@ public class MainActivity extends AppCompatActivity {
                     project4.setVisibility(View.INVISIBLE);
                     break;
                 case 4 :
+                    id = 0;
+                    project1.setBackground(getResources().getDrawable(R.drawable.btnborder));
                     project1.setVisibility(View.VISIBLE);
                     setSrc(project1, images[0]);
                     project2.setVisibility(View.VISIBLE);
@@ -227,11 +271,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void setSrc(ImageButton btn, String type){
         if(type.equals("car")){
-            btn.setBackgroundResource(R.drawable.babycar);
+            btn.setImageResource(R.drawable.babycar);
         } else if(type.equals("house")){
-            btn.setBackgroundResource(R.drawable.house);
+            btn.setImageResource(R.drawable.house);
         } else{
-            btn.setBackgroundResource(R.drawable.graduated);
+            btn.setImageResource(R.drawable.graduated);
         }
     }
 
